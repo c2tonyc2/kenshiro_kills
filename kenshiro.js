@@ -5,15 +5,24 @@ kenshiro.KenshiroImage = {
     HEAD_KENSHIRO = "head_kenshiro.jpg"
 }
 // rotation is a boolean flag.
-func newKenshiro(id_name, class_name, image_name, width, height, xMovement, yMovement, rotation) {
+func newKenshiro(idName, className, imageName, x, y, width, height, moveFunction, rotation) {
 
-    return {
-        id: id_name,
-        class: class_name,
+    //create the element in the html
+    addImage(imageName, idName, className, x, y, width, height, "kenshiro_end");
+
+    var kenshiro = {
+        id: idName,
+        class: className,
         width: width,
         height: height,
         xMovement: xMovement,
         yMovement: yMovement,
-        rotation: rotation
-    }
+    };
+
+    setInterval(moveFunction, 30); //$("#image").css({left:value.val, top:value.val});
+
+    return {
+        id: idName,
+        class: className
+    };
 }

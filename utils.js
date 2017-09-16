@@ -1,4 +1,4 @@
-function addImage (imageUrl, x, y, width, height, idName, className) { 
+function addImage (imageUrl, idName, className, x, y, width, height, beforeElementId) { 
   // create a new div element 
   // and give it some content 
   var newDiv = document.createElement("div"); 
@@ -11,6 +11,6 @@ function addImage (imageUrl, x, y, width, height, idName, className) {
   newDiv.css({left:x, top:y});
 
   // add the newly created element and its content into the DOM 
-  var currentDiv = document.getElementById("kenshiro_end"); //this div is the reference point in the HTML for new images.
+  var currentDiv = document.getElementById(beforeElementId); //this div is the reference point in the HTML for new images.
   document.body.insertBefore(newDiv, currentDiv); 
 }

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script src="http://code.jquery.com/jquery.min.js"></script>
+
+<style>
+	html {
+	  height: 100%;
+	}
+	body {
+	  min-height: 100%;
+	}
+	img {
+	  max-width: 100%;
+	  max-height: 100%;
+	}
+	#seeking_kenshiro {
+	  width: 100px;
+	  height: 100px;
+	  position: absolute;
+		background-image: url('https://alangodshaw.files.wordpress.com/2012/05/kenshiro-walk.gif');
+		background-size: 100% 100%;
+		top: 0px;
+		left: 0px;
+	}
+</style>
+
+</head>
+
+<body>
+	  <div
+			id="seeking_kenshiro">
+		</div>
+
+<script>
+	$(document).ready(function() {
+		window.max_mouseX = 2;
+		window.max_mouseY = 1;
+		window.mouseX = 50;
+		window.mouseY = 50;
+
+
+
+		var move_kenshiro = function(kenshiro, dest) {
+			// Move the selected kenshiro object towards dest
+			if (dest === "mouse") {
+				var distX = window.mouseX - kenshiro.offset().left - kenshiro.width()/2;
+				var distY = window.mouseY - kenshiro.offset().top - kenshiro.height()/2;
+
+				var scaledX = Math.sign(distX) * Math.min(
+						Math.abs(distX),
+						window.max_mouseX
+				);
+				var scaledY = Math.sign(distY) * Math.min(
+						Math.abs(distY),
+						window.max_mouseY
+				)
+
+				kenshiro.css({
+		    		'left': kenshiro.offset().left + scaledX,
+		        'top': kenshiro.offset().top + scaledY
+		      })
+			}
+		};
+
+		var omae_wa_mou_shindeiru = function() {
+			// You're already dead
+			window.alert("お前はもう死んでいる");
+		}
+
+	  document.addEventListener("mousemove", function(event) {
+			window.mouseX = event.pageX;
+			window.mouseY = event.pageY;
+	  });
+
+		$('#seeking_kenshiro').hover(function(event) {
+			omae_wa_mou_shindeiru();
+		});
+
+		// Move all kenshiros that should be seeking
+		setInterval(function() {
+			move_kenshiro($('#seeking_kenshiro'), "mouse");
+		}, 10);
+  });
+</script>
+
+</body>
+</html>

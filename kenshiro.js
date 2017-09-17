@@ -22,15 +22,16 @@ function newKenshiro(idName, className, imageName, x, y, width, height, xMovemen
     var elem = addImage(imageName, idName, className, x, y, width, height, "kenshiro_end");
 
     elem.onmouseover = async function(event) {
-        console.log("お前はもう死んでいる");
-        if (!window.already_dead) {
-            var audio = document.getElementById('audio2');
-            audio.onended = function() {
-                window.location.replace("end.html");
-            };
-            audio.play();
-            window.already_dead = true;
-        }
+        window.location.replace("end.html");
+        // console.log("お前はもう死んでいる");
+        // if (!window.already_dead) {
+        //     var audio = document.getElementById('audio2');
+        //     audio.onended = function() {
+        //         window.location.replace("end.html");
+        //     };
+        //     audio.play();
+        //     window.already_dead = true;
+        // }
     };
 
     var kenshiro = {
@@ -57,7 +58,7 @@ function slidingKenshiroMoveFunctionGenerator(kenshiro, xMovement, yMovement) {
         }
         elem.style.left = count.x + xMovement;
         elem.style.top = count.y + yMovement;
-        
+
         var rect1 = elem.getBoundingClientRect();
         count.x = rect1.left;
         count.y = rect1.top;
@@ -85,7 +86,7 @@ function bouncingKenshiroMoveFunctionGenerator(kenshiro, xMovement, yMovement) {
         var elem_left = parseInt(elem.style.left.split("px")[0]);
         var elem_width = elem.clientWidth;//pixelsToInteger(elem.clientWidth);//pixelsToInteger(elem.style.width);
         var elem_height = elem.clientHeight;//pixelsToInteger(elem.clientHeight);//pixelsToInteger(elem.style.height);
-        // console.log(document.body.clientHeight, document.body.clientWidth);        
+        // console.log(document.body.clientHeight, document.body.clientWidth);
         // console.log(elem_left, elem_width);
         if (elem_top + elem_height > clientHeight) {
             data.y_reverse = true;
@@ -110,7 +111,7 @@ function bouncingKenshiroMoveFunctionGenerator(kenshiro, xMovement, yMovement) {
         } else {
             elem.style.top = data.y + yMovement;
         }
-        
+
         var rect1 = elem.getBoundingClientRect();
         data.x = rect1.left;
         data.y = rect1.top;

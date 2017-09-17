@@ -1,185 +1,59 @@
-<html>
-<head>
+<div>
+	<div class="title">
+		<p1 id="titletext">
+		Omae wa mou shindeiru
+		</p1>
+	</div>
+	<div>
+		<button type="button" onclick="start()" class="startbutton"> Start Death</button>
+		<audio src="mp3/omae.mp3" id="audio"></audio>
+	</div>
+</div>
 
-<script src="http://code.jquery.com/jquery.min.js"></script>
+<style type="text/css">
+body {
+	cursor: url('img/precious_tank.gif');
+}
 
-<style>
-	html {
-	  height: 100%;
-	}
+html {
+  background: url(img/start.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
-	body {
-	  min-height: 100%;
-	}
+.title {
+	font-family: "Helvetica";
+	font-size: 50px;
+	color: white;
+	margin-top: 15%;
+}
 
-	img {
-	  max-width: 100%;
-	  max-height: 100%;
-	}
+div {
+	text-align: center;
+}
 
-	.kenshiro {
-		width: 100px;
-		height: 100px;
-		transform: scaleX(1);
-		position: absolute;
-		background-size: 100% 100%;
-	}
-
-	.seeking_kenshiro {
-		background-image: url('https://alangodshaw.files.wordpress.com/2012/05/kenshiro-run.gif');
-		z-index: 1;
-	}
-
-	.surprise_kenshiro {
-		background-image: url('https://alangodshaw.files.wordpress.com/2012/05/kenshiro-ten-ha-kamae.gif');
-	}
-
-
+.startbutton {
+	margin-top: 5%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	padding-left: 5%;
+	padding-right: 5%;
+	font-size: 50px;
+	color: red;
+}
 </style>
 
-</head>
-
-<body>
-
 <script>
-	$(document).ready(function() {
-		document.getElementById('audio').play();
 
-		window.max_mouseX = 2;
-		window.max_mouseY = 1;
-		window.mouseX = 50;
-		window.mouseY = 50;
-		window.already_dead = false;
-
-		var kenshiro_id_counter = 0;
-		var active_kenshiros = {};
-
-		// First, checks if it isn't implemented yet.
-		if (!String.prototype.format) {
-		  String.prototype.format = function() {
-		    var args = arguments;
-		    return this.replace(/{(\d+)}/g, function(match, number) {
-		      return typeof args[number] != 'undefined'
-		        ? args[number]
-		        : match
-		      ;
-		    });
-		  };
-		}
-
-		var move_seeking_kenshiro = function() {
-			// Move the selected kenshiro object towards dest
-			var kenshiro = $("#{0}".format(this.id));
-			var distX = window.mouseX - kenshiro.offset().left - kenshiro.width()/2;
-			var distY = window.mouseY - kenshiro.offset().top - kenshiro.height()/2;
-
-			var scaledX = Math.sign(distX) * Math.min(
-					Math.abs(distX),
-					window.max_mouseX
-			);
-			var scaledY = Math.sign(distY) * Math.min(
-					Math.abs(distY),
-					window.max_mouseY
-			);
-
-			kenshiro.css({
-	    		'left': kenshiro.offset().left + scaledX,
-	        'top': kenshiro.offset().top + scaledY,
-					'transform': "scaleX({0})".format(Math.sign(distX))
-      });
-		};
-
-		var move_surprise_kenshiro = function() {
-			var kenshiro = $("#{0}".format(this.id));
-			var distX = window.mouseX - kenshiro.offset().left - kenshiro.width()/2;
-
-			kenshiro.css({
-				'transform': "scaleX({0})".format(Math.sign(distX))
-			});
-		};
-
-		var omae_wa_mou_shindeiru = function() {
-			// You're already dead
-			console.log("お前はもう死んでいる");
-	        if (!window.already_dead) {
-	            var audio = document.getElementById('audio2');
-	            audio.onended = function() {
-	                window.location.replace("end.html");
-	            };
-	            audio.play();
-	            window.already_dead = true;
-	        }
-		}
-
-	  document.addEventListener("mousemove", function(event) {
-			window.mouseX = event.pageX;
-			window.mouseY = event.pageY;
-	  });
-
-		var create_kenshiro = function(class_tag, move_function, originX, originY) {
-			var kenshiro_id = "kenshiro_{0}".format(kenshiro_id_counter);
-			$('body').append("<div class=\"kenshiro {0}\" id=\"{1}\"></div>".format(
-					class_tag,
-					kenshiro_id,
-			));
-
-			$(".{0}".format(class_tag)).hover(function(event) {
-				omae_wa_mou_shindeiru();
-			});
-
-			$("#{0}".format(kenshiro_id)).css({
-				'left': originX,
-				'top': originY
-			});
-
-			active_kenshiros[kenshiro_id] = {
-				id: kenshiro_id,
-				move: move_function
-			};
-
-			kenshiro_id_counter += 1;
-			return kenshiro_id;
-		}
-
-		// Move all kenshiros that should be seeking
-		setInterval(function() {
-			$.each(active_kenshiros, function(id, kenshiro) {
-				kenshiro.move();
-			});
-		}, 10);
-
-		// create_kenshiro("seeking_kenshiro");
-		setTimeout(function() {
-			create_kenshiro("seeking_kenshiro", move_seeking_kenshiro, "45%", "45%");
-		}, 2000);
-
-		setInterval(function() {
-			var originX = "{0}%".format(Math.min(Math.random() * 100, 90));
-			var originY = "{0}%".format(Math.min(Math.random() * 100, 85));
-			var new_kenshiro_id = create_kenshiro(
-				"surprise_kenshiro",
-				move_surprise_kenshiro,
-				originX,
-				originY
-			);
-			console.log("new kenshiro_id")
-			setTimeout(function() {
-				$("#{0}".format(new_kenshiro_id)).remove();
-				delete active_kenshiros[new_kenshiro_id];
-			}, 3000);
-		}, 3000);
-
-  });
+function start() {
+	document.getElementById('audio').play();
+	setTimeout(function () {
+		document.getElementById('titletext').innerHTML = "お前はもう死んでいる";
+    }, 2000);
+    setTimeout(function() {
+    	window.location.replace("game.html");
+    }, 3200);
+}
 </script>
-
-
-    <div id="kenshiro_end"></div>
-    <audio src="mp3/battle.mp3" id="audio"></audio>
-    <audio src="mp3/die_in_your_precious_tank.mp3" id="audio2"></audio>
-    <!-- <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="utils.js"></script>
-    <script src="kenshiro.js"></script>
-    <script src="stages.js"></script>
-</body>
-</html>

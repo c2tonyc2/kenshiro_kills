@@ -34,6 +34,10 @@
 		background-image: url('https://alangodshaw.files.wordpress.com/2012/05/kenshiro-ten-ha-kamae.gif');
 	}
 
+	#score_div {
+		z-index: 2;
+		font-family: "Comic Sans MS";
+	}
 
 </style>
 
@@ -49,6 +53,7 @@
 		window.max_mouseY = 1;
 		window.mouseX = 50;
 		window.mouseY = 50;
+		window.score_counter = 0;
 		// window.already_dead = false;
 
 		var kenshiro_id_counter = 0;
@@ -142,11 +147,13 @@
 			return kenshiro_id;
 		}
 
-		// Move all kenshiros that should be seeking
+		// Move all kenshiros that should be seeking, and update score
 		setInterval(function() {
 			$.each(active_kenshiros, function(id, kenshiro) {
 				kenshiro.move();
 			});
+			$('#score_box').text(window.score_counter);
+			window.score_counter += 1;
 		}, 10);
 
 		// create_kenshiro("seeking_kenshiro");
@@ -173,7 +180,11 @@
   });
 </script>
 
-
+		<div id=score_div>
+			<p>Current Score:
+				<p id=score_box> 0 </p>
+			</p>
+		</div>
     <div id="kenshiro_end"></div>
     <audio src="mp3/battle.mp3" id="audio"></audio>
     <audio src="mp3/die_in_your_precious_tank.mp3" id="audio2"></audio>

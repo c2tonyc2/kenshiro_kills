@@ -26,7 +26,7 @@
 	}
 
 	.seeking_kenshiro {
-		background-image: url('https://alangodshaw.files.wordpress.com/2012/05/kenshiro-walk.gif');
+		background-image: url('https://alangodshaw.files.wordpress.com/2012/05/kenshiro-run.gif');
 		z-index: 1;
 	}
 
@@ -43,10 +43,13 @@
 
 <script>
 	$(document).ready(function() {
+		document.getElementById('audio').play();
+
 		window.max_mouseX = 2;
 		window.max_mouseY = 1;
 		window.mouseX = 50;
 		window.mouseY = 50;
+		window.already_dead = false;
 
 		var kenshiro_id_counter = 0;
 		var active_kenshiros = {};
@@ -98,6 +101,14 @@
 		var omae_wa_mou_shindeiru = function() {
 			// You're already dead
 			console.log("お前はもう死んでいる");
+	        if (!window.already_dead) {
+	            var audio = document.getElementById('audio2');
+	            audio.onended = function() {
+	                window.location.replace("end.html");
+	            };
+	            audio.play();
+	            window.already_dead = true;
+	        }
 		}
 
 	  document.addEventListener("mousemove", function(event) {
@@ -163,6 +174,8 @@
 
 
     <div id="kenshiro_end"></div>
+    <audio src="mp3/battle.mp3" id="audio"></audio>
+    <audio src="mp3/die_in_your_precious_tank.mp3" id="audio2"></audio>
     <!-- <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="utils.js"></script>

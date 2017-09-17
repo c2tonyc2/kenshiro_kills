@@ -1,0 +1,54 @@
+<div>
+	<div class="title">
+		<p1 id="titletext">
+		You are already dead
+		</p1>
+	</div>
+	<div>
+		<button type="button" onclick="restart()" class="startbutton"> Die again</button>
+		<audio src="mp3/omae.mp3" id="audio"></audio>
+		<audio src="mp3/explosion.mp3" id="audio2"></audio>
+	</div>
+</div>
+
+<style type="text/css">
+html { 
+  background: url(img/end.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.title {
+	font-family: "Helvetica";
+	font-size: 50px;
+	color: white;
+	margin-top: 15%;
+}
+
+div {
+	text-align: center;
+}
+
+.startbutton {
+	margin-top: 5%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	padding-left: 5%;
+	padding-right: 5%;
+	font-size: 50px;
+	color: red;
+}
+</style>
+
+<script>
+document.getElementById('audio2').play();
+
+function restart() {
+	document.getElementById('audio').play();
+	setTimeout(function() {
+    	window.location.replace("index.html");
+    }, 3200);
+}
+</script>

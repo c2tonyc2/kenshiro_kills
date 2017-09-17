@@ -10,7 +10,7 @@ function horizontalKenshiroStage() {
 
     var count = 1;
     var top = true;
-    while (count <= 9) {
+    while (count < 50) {
         if (count % 2 == 1) {
             var y = topY;
             if (!top) {
@@ -20,7 +20,7 @@ function horizontalKenshiroStage() {
                 y = topY;
                 top = false;
             }
-            newKenshiro(count.toString(), KENSHIRO_CLASS, WALKING_KENSHIRO, -WALKING_KENSHIRO_WIDTH * count, y, WALKING_KENSHIRO_WIDTH, WALKING_KENSHIRO_HEIGHT, 10, 0, slidingKenshiroMoveFunctionGenerator, false);
+            newKenshiro(count.toString(), KENSHIRO_CLASS, WALKING_KENSHIRO, -WALKING_KENSHIRO_WIDTH * (1.1 * count), y, WALKING_KENSHIRO_WIDTH, WALKING_KENSHIRO_HEIGHT, 10, 0, slidingKenshiroMoveFunctionGenerator, false);
         }
         count += 1;
     }
@@ -28,7 +28,6 @@ function horizontalKenshiroStage() {
 
 horizontalKenshiroStage();
 var elems = document.getElementsByClassName(KENSHIRO_CLASS);
-console.log(elems);
 // for (var i=0; i<elems.length;i++) {
 //     var elem = elems[i];
 //     console.log(elem.id);

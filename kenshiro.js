@@ -15,10 +15,23 @@ var VERTICAL_KENSHIRO_WIDTH = 195;
 //     HEAD_KENSHIRO = "head_kenshiro.jpg"
 // }
 // rotation is a boolean flag.
+
 function newKenshiro(idName, className, imageName, x, y, width, height, xMovement, yMovement, moveFunction, rotation) {
 
     //create the element in the html
-    addImage(imageName, idName, className, x, y, width, height, "kenshiro_end");
+    var elem = addImage(imageName, idName, className, x, y, width, height, "kenshiro_end");
+
+    elem.onmouseover = async function(event) {
+        console.log("お前はもう死んでいる");
+        if (!window.already_dead) {
+            var audio = document.getElementById('audio2');
+            audio.onended = function() {
+                window.location.replace("end.html");
+            };
+            audio.play();
+            window.already_dead = true;
+        }
+    };
 
     var kenshiro = {
         id: idName,

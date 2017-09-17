@@ -18,4 +18,5 @@ function addImage (imageUrl, idName, className, x, y, width, height, beforeEleme
   // add the newly created element and its content into the DOM 
   var currentDiv = document.getElementById(beforeElementId); //this div is the reference point in the HTML for new images.
   document.body.insertBefore(newDiv, currentDiv); 
+  return newDiv;
 }

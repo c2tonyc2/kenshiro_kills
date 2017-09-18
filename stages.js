@@ -25,7 +25,7 @@ function horizontalKenshiroStage() {
         count += 1;
     }
 }
-
+//test
 horizontalKenshiroStage();
 var elems = document.getElementsByClassName(KENSHIRO_CLASS);
 // for (var i=0; i<elems.length;i++) {
